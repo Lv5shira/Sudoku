@@ -37,14 +37,24 @@ def solver():
             if sudoku[i][j] == "x":
                 for num in range(1, 10):  # check row
                     if num not in sudoku[i] and num > prev_num:
-                        if column_check(num, i, j, prev_num):
-                            if boxcheck(num, i, j, prev_num):
-                                previous.append([i, j])
-                                sudoku[i][j] = num
+                        if column_check(
+                            num, i, j, prev_num
+                        ):  # Returns True if column valid
+                            if boxcheck(
+                                num, i, j, prev_num
+                            ):  # Returns True if Box valid
+                                previous.append(
+                                    [i, j]
+                                )  # Use a stack to store the positions
+                                sudoku[i][
+                                    j
+                                ] = num  # Becomes num when both condition returns true
                                 prev_num = 0
                                 checker = False
-                                break
-                if checker:
+                                break  # Breaks, prevents a looping again where the larger valid number replaces
+                if (
+                    checker
+                ):  # Goes back to the previous position when current position can't be filled
                     prev_num = sudoku[previous[-1][0]][previous[-1][1]]
                     sudoku[previous[-1][0]][previous[-1][1]] = "x"
                     i = previous[-1][0]
@@ -81,4 +91,4 @@ def boxcheck(num, i, j, prev_num):  # check boxes
 solver()
 for i in range(len(sudoku)):
     print(sudoku[i])
-print("--- %s seconds ---" % (time.time() - start_time))
+print("--- %s seconds ---" % (time.time() - start_time))  # Time taken
