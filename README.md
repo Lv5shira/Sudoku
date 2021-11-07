@@ -1,2 +1,3 @@
 # Sudoku
- A Sudoku Solver
+A simple Sudoku solver written in Python
+No GUI
